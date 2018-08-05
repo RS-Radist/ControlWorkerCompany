@@ -3,7 +3,7 @@
 Manager::Manager()// Конструктор по умолчанию
 {}
 
-Manager::Manager(const int _base_salary, const QString& _name, const QDate& rdate)
+Manager::Manager(const double _base_salary, const QString& _name, const QDate& rdate)
 {}
 
 Manager::~Manager()
@@ -14,9 +14,9 @@ QString Manager::GetName() const
     return this->name;
 }
 
-int Manager::GetSalary() const
+double Manager::GetSalary() const
 {
-    return this->salary;
+    return this->base_salary;
 }
 
 QString Manager::GetDateString() const
@@ -24,14 +24,29 @@ QString Manager::GetDateString() const
     return this->recruit_date.toString("dd/MM/yyyy");
 }
 
+QString Manager::GetPas() const
+{
+    return this->pas;
+}
+
+QString Manager::GetPosition()
+{
+    return this->position;
+}
+
+void Manager::SetPosition(const QString &position)
+{
+    this->position=position;
+}
+
 void Manager::SetName(const QString& _name)
 {
     this->name = _name;
 }
 
-void Manager::SetSalary(const int salary)
+void Manager::SetSalary(const double salary)
 {
-    this->salary = salary;
+    this->base_salary = salary;
 }
 
 void Manager::SetDirector(const Director* boss)
@@ -44,7 +59,12 @@ void Manager::SetWorkDate(const QDate& rdate)
     this->recruit_date=rdate;
 }
 
-int Manager::AddSalaryAllTime(const QDate* const& dateStartWork)
+void Manager::SetPas(const QString &pas)
+{
+    this->pas=pas;
+}
+
+double Manager::AddSalaryAllTime(const QDate* const& dateStartWork)
 {
 //        int procentYear=5;
 //        QDate dateToday = QDate::currentDate();

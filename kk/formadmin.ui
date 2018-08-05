@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>837</width>
-    <height>613</height>
+    <width>621</width>
+    <height>420</height>
    </rect>
   </property>
   <property name="font">
@@ -18,193 +18,248 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>661</width>
-     <height>301</height>
+     <x>90</x>
+     <y>50</y>
+     <width>461</width>
+     <height>26</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <family>.PingFang TC</family>
-    </font>
+   <property name="toolTip">
+    <string>List Worker</string>
    </property>
-   <property name="title">
-    <string/>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>100</y>
+     <width>461</width>
+     <height>61</height>
+    </rect>
    </property>
-   <widget class="QPushButton" name="but_addWorker">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>20</y>
-      <width>208</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Worker</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_close">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>220</y>
-      <width>411</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Close</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_DelWorker">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>20</y>
-      <width>211</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Delete Worker</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_SaveBase">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>90</y>
-      <width>208</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Save Base</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_wievAllSalary">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>160</y>
-      <width>411</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>View all Salary</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_LoadBase">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>90</y>
-      <width>211</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Load Base</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>250</y>
-      <width>241</width>
-      <height>26</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>30</y>
-      <width>249</width>
-      <height>200</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="font">
-        <font>
-         <family>.Al Bayan PUA</family>
-         <pointsize>25</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>DATE</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>.Al Bayan PUA</family>
-         <pointsize>15</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="statusTip">
-        <string/>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string>POSITION MANAGER</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label">
-       <property name="font">
-        <font>
-         <family>.Al Bayan PUA</family>
-         <pointsize>25</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>SALARY</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <family>.Al Bayan PUA</family>
+        <pointsize>13</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>Date</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <family>.Al Bayan PUA</family>
+        <pointsize>13</pointsize>
+        <weight>50</weight>
+        <italic>true</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhNone</set>
+      </property>
+      <property name="text">
+       <string>Salary</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>.Al Bayan PUA</family>
+        <pointsize>13</pointsize>
+        <weight>50</weight>
+        <italic>true</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Position Manager</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>.Al Bayan PUA</family>
+        <pointsize>13</pointsize>
+        <weight>50</weight>
+        <italic>true</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Password</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>180</y>
+     <width>461</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QTextBrowser" name="textBrowser_date"/>
+    </item>
+    <item>
+     <widget class="QTextBrowser" name="textBrowser_salary"/>
+    </item>
+    <item>
+     <widget class="QTextBrowser" name="textBrowser_positionManager"/>
+    </item>
+    <item>
+     <widget class="QTextBrowser" name="textBrowser_Pas"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>219</y>
+     <width>461</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QPushButton" name="but_addWorker">
+      <property name="toolTip">
+       <string>Add</string>
+      </property>
+      <property name="text">
+       <string>Add Worker</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_DelWorker">
+      <property name="toolTip">
+       <string>Delete</string>
+      </property>
+      <property name="text">
+       <string>Delete Worker</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_SaveBase">
+      <property name="toolTip">
+       <string>Save Base</string>
+      </property>
+      <property name="text">
+       <string>Save Base</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_LoadBase">
+      <property name="toolTip">
+       <string>Load Base</string>
+      </property>
+      <property name="text">
+       <string>Load Base</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>260</y>
+     <width>461</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="pushButton_wievAllSalary">
+      <property name="toolTip">
+       <string>Wiew All Salary</string>
+      </property>
+      <property name="text">
+       <string>View all Salary</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_close">
+      <property name="text">
+       <string>Close</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

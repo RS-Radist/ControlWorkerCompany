@@ -9,32 +9,90 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QApplication>
+#include <algorithm>
+#include <QErrorMessage>
+#include <QPrintDialog>
+#include <QPainter>
+#include <QVector>
+
+
 FormAdmin::FormAdmin(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FormAdmin)
 {
     ui->setupUi(this);
     size=0;
-    QObject::connect(ui->pushButton_close,SIGNAL(clicked()),this,SLOT(close()));
+    ui->textBrowser_salary->setAlignment(Qt::AlignCenter);
+    ui->textBrowser_positionManager->setAlignment(Qt::AlignCenter);
+    ui->textBrowser_date->setAlignment(Qt::AlignCenter);
+
+
 }
 
-FormAdmin::~FormAdmin()
+FormAdmin::FormAdmin(QVector<Employee> emp, QVector<Manager> man, QVector<Sales> sal,QWidget *parent):
+    QDialog(parent),
+    ui(new Ui::FormAdmin)
+{
+    ui->setupUi(this);
+    size=0;
+    ui->textBrowser_salary->setAlignment(Qt::AlignCenter);
+    ui->textBrowser_positionManager->setAlignment(Qt::AlignCenter);
+    ui->textBrowser_date->setAlignment(Qt::AlignCenter);
+
+    vecBoxEmployee.swap(emp);
+    vecBoxManager.swap(man);
+    vecBoxSales.swap(sal);
+
+
+    if(!vecBoxEmployee.isEmpty())
+    for(int i=0;i<vecBoxEmployee.size();++i)
+    {
+        ui->comboBox->addItem(vecBoxEmployee[i].GetName());
+        ui->textBrowser_salary->setText(QVariant(vecBoxEmployee[i].GetSalary()).toString());
+        ui->textBrowser_Pas->setText(vecBoxEmployee[i].GetPas());
+        ui->textBrowser_positionManager->setText(vecBoxEmployee[i].GetPosition());
+        ui->textBrowser_date->setText(vecBoxEmployee[i].GetDateString());
+    }
+    if(!vecBoxManager.isEmpty())
+    for(int i=0;i<vecBoxManager.size();++i)
+    {
+        ui->comboBox->addItem(vecBoxManager[i].GetName());
+        ui->textBrowser_salary->setText(QVariant(vecBoxManager[i].GetSalary()).toString());
+        ui->textBrowser_Pas->setText(vecBoxManager[i].GetPas());
+        ui->textBrowser_positionManager->setText(vecBoxManager[i].GetPosition());
+        ui->textBrowser_date->setText(vecBoxManager[i].GetDateString());
+    }
+    if(!vecBoxSales.isEmpty())
+    for(int i=0;i<vecBoxSales.size();++i)
+    {
+        ui->comboBox->addItem(vecBoxSales[i].GetName());
+        ui->textBrowser_salary->setText(QVariant(vecBoxSales[i].GetSalary()).toString());
+        ui->textBrowser_Pas->setText(vecBoxSales[i].GetPas());
+        ui->textBrowser_positionManager->setText(vecBoxSales[i].GetPosition());
+        ui->textBrowser_date->setText(vecBoxSales[i].GetDateString());
+    }
+
+}
+
+
+
+FormAdmin::~FormAdmin()// Удаление
 {
     delete ui;
 }
 
-void FormAdmin::on_but_addWorker_clicked()
+void FormAdmin::on_but_addWorker_clicked()// Открыте окна добавления сотрудника
 {
     ObjectAddWorker=new Window;
     QObject::connect(ObjectAddWorker->but_Add,SIGNAL(clicked()),ObjectAddWorker,SLOT(SlotEditName()));
-    QObject::connect(ObjectAddWorker,SIGNAL(SignalTransferInfo(QString,QString,int,QDate)),this,SLOT(SaveSlotInfo(QString,QString,int,QDate)));
+    QObject::connect(ObjectAddWorker,SIGNAL(SignalTransferInfo(QString,QString,double,QDate,QString)),this,SLOT(SaveSlotInfo(QString,QString,double,QDate,QString)));
     QObject::connect(ObjectAddWorker->but_Add,SIGNAL(clicked()),ObjectAddWorker,SLOT(close()));
     ObjectAddWorker->setModal(true);
     ObjectAddWorker->exec();
 
 }
 
-void FormAdmin::SaveSlotInfo(QString strName,QString strPositionManager,int inSalary,QDate date)
+void FormAdmin::SaveSlotInfo(QString strName,QString strPositionManager,double inSalary,QDate date,QString pas) // Слот для приема данных с окна добавления сотрудников
 {
     if (strPositionManager=="Manager")
     {
@@ -45,29 +103,19 @@ void FormAdmin::SaveSlotInfo(QString strName,QString strPositionManager,int inSa
             MANAGER_BOX->SetName(strName);
             MANAGER_BOX->SetSalary(inSalary);
             MANAGER_BOX->SetWorkDate(date);
+            MANAGER_BOX->SetPas(pas);
+            MANAGER_BOX->SetPosition(strPositionManager);
             vecBoxManager.push_back(*MANAGER_BOX);
-            ui->label->setNum(inSalary);
+
+
+            ui->textBrowser_salary->setText(QVariant(inSalary).toString());
             ui->comboBox->addItem(strName);
-            vec_position_Manager.push_back(strPositionManager);
-            ui->label_2->setText(strPositionManager);
-            ui->label_3->setText(date.toString("dd/MM/yyyy"));
+            ui->textBrowser_Pas->setText(pas);
+
+            ui->textBrowser_positionManager->setText(strPositionManager);
+            ui->textBrowser_date->setText(date.toString("dd/MM/yyyy"));
             ++size;
-//            for (int i=0;i<vecBox.size();++i)
-//            {
-//                qDebug()<<vecBox[i].GetName();
-//            }
 
-
-
-
-//        vec_name.push_back(strName);
-//        ui->comboBox->addItem(strName);
-
-//        vec_salary.push_back(inSalary);
-//        ui->label->setNum(inSalary);
-
-//        vec_position_manager.push_back(strPositionManager);
-//        ui->label_2->setText(strPositionManager);
 
     }
     if (strPositionManager=="Sales")
@@ -78,18 +126,22 @@ void FormAdmin::SaveSlotInfo(QString strName,QString strPositionManager,int inSa
         SALES_BOX=new Sales;
         SALES_BOX->SetName(strName);
         SALES_BOX->SetSalary(inSalary);
+        SALES_BOX->SetWorkDate(date);
+        SALES_BOX->SetPas(pas);
+        SALES_BOX->SetPosition(strPositionManager);
         vecBoxSales.push_back(*SALES_BOX);
-        ui->label->setNum(inSalary);
-        ui->comboBox->addItem(strName);
-        vec_position_Sales.push_back(strPositionManager);
-        ui->label_2->setText(strPositionManager);
 
-//        vec_name.push_back(strName);
-//        ui->comboBox->addItem(strName);
-//        vec_salary.push_back(inSalary);
-//        ui->label->setNum(inSalary);
-//        vec_position_manager.push_back(strPositionManager);
-//        ui->label_2->setText(strPositionManager);
+
+
+
+        ui->comboBox->addItem(strName);
+        ui->textBrowser_Pas->setText(pas);
+
+        ui->textBrowser_salary->setText(QVariant(inSalary).toString());
+        ui->textBrowser_positionManager->setText(strPositionManager);
+        ui->textBrowser_date->setText(date.toString("dd/MM/yyyy"));
+
+
 
     }
     if (strPositionManager=="Employee")
@@ -99,34 +151,38 @@ void FormAdmin::SaveSlotInfo(QString strName,QString strPositionManager,int inSa
         EMPLOYEE_BOX=new Employee;
         EMPLOYEE_BOX->SetName(strName);
         EMPLOYEE_BOX->SetSalary(inSalary);
+        EMPLOYEE_BOX->SetWorkDate(date);
+        EMPLOYEE_BOX->SetPas(pas);
+        EMPLOYEE_BOX->SetPosition(strPositionManager);
         vecBoxEmployee.push_back(*EMPLOYEE_BOX);
-        ui->label->setNum(inSalary);
-        ui->comboBox->addItem(strName);
-        vec_position_Employee.push_back(strPositionManager);
-        ui->label_2->setText(strPositionManager);
 
-//        vec_name.push_back(strName);
-//        ui->comboBox->addItem(strName);
-//        vec_salary.push_back(inSalary);
-//        ui->label->setNum(inSalary);
-//        vec_position_manager.push_back(strPositionManager);
-//        ui->label_2->setText(strPositionManager);
+
+        ui->comboBox->addItem(strName);
+        ui->textBrowser_Pas->setText(pas);
+        ui->textBrowser_salary->setText(QVariant(inSalary).toString());
+        ui->textBrowser_positionManager->setText(strPositionManager);
+        ui->textBrowser_date->setText(date.toString("dd/MM/yyyy"));
 
     }
 }
 
 
-void FormAdmin::on_comboBox_activated(const QString &arg1)
+void FormAdmin::on_comboBox_activated(const QString &arg1)// Привязка от COMBOBOX
 {
+    QString formDouble;
     if(!vecBoxManager.isEmpty())
        {
          for(int i=0;i<vecBoxManager.size();++i)
          {
                if(ui->comboBox->currentText()==vecBoxManager[i].GetName())
                {
-                   emit Signal_1(vecBoxManager[i].GetSalary());
-                   emit Signal_2(vec_position_Manager[i]);
+
+                   formDouble=QString::number(vecBoxManager[i].GetSalary());
+
+                   emit Signal_1(formDouble);
+                   emit Signal_2(vecBoxManager[i].GetPosition());
                    emit Signal_3(vecBoxManager[i].GetDateString());
+                   emit Signal_5(vecBoxManager[i].GetPas());
                }
          }
        }
@@ -136,9 +192,13 @@ void FormAdmin::on_comboBox_activated(const QString &arg1)
          {
                if(ui->comboBox->currentText()==vecBoxSales[i].GetName())
                {
-                   emit Signal_1(vecBoxSales[i].GetSalary());
-                   emit Signal_2(vec_position_Sales[i]);
+
+                   formDouble=QString::number(vecBoxSales[i].GetSalary());
+
+                   emit Signal_1(formDouble);
+                   emit Signal_2(vecBoxSales[i].GetPosition());
                    emit Signal_3(vecBoxSales[i].GetDateString());
+                   emit Signal_5(vecBoxSales[i].GetPas());
                }
          }
        }
@@ -148,39 +208,79 @@ void FormAdmin::on_comboBox_activated(const QString &arg1)
          {
                if(ui->comboBox->currentText()==vecBoxEmployee[i].GetName())
                {
-                   emit Signal_1(vecBoxEmployee[i].GetSalary());
-                   emit Signal_2(vec_position_Employee[i]);
 
+                   formDouble=QString::number(vecBoxEmployee[i].GetSalary());
+
+                   emit Signal_1(formDouble);
+                   emit Signal_2(vecBoxEmployee[i].GetPosition());
+                   emit Signal_3(vecBoxEmployee[i].GetDateString());
+                   emit Signal_5(vecBoxEmployee[i].GetPas());
                }
          }
        }
-    QObject::connect(this,SIGNAL(Signal_1(int)),ui->label,SLOT(setNum(int)));
-    QObject::connect(this,SIGNAL(Signal_2(QString)),ui->label_2,SLOT(setText(QString)));
-    QObject::connect(this,SIGNAL(Signal_3(QString)),ui->label_3,SLOT(setText(QString)));
+    QObject::connect(this,SIGNAL(Signal_1(QString)),ui->textBrowser_salary,SLOT(setText(QString)));
+    QObject::connect(this,SIGNAL(Signal_2(QString)),ui->textBrowser_positionManager,SLOT(setText(QString)));
+    QObject::connect(this,SIGNAL(Signal_3(QString)),ui->textBrowser_date,SLOT(setText(QString)));
+    QObject::connect(this,SIGNAL(Signal_5(QString)),ui->textBrowser_Pas,SLOT(setText(QString)));
 }
 
-void FormAdmin::on_pushButton_SaveBase_clicked()
+void FormAdmin::on_pushButton_SaveBase_clicked()// Сохранение в файл
 {
-    QString nametext;
-    QString filename = QFileDialog::getSaveFileName(
-                       this,
-                       tr("Save Document"),
-                       QDir::currentPath(),
-                       tr("Documents (*.doc)") );
-           if( !filename.isNull() )
-           {
-                nametext=QDir::currentPath();
-                QTextEdit* savetext=new QTextEdit("erererer");
-                QPrinter printer(QPrinter::HighResolution);
-                printer.setOutputFormat(QPrinter::PdfFormat);
-                printer.setOutputFileName(nametext);
-                savetext->document()->print(&printer);
-           }
 
-//
 
-    QMessageBox msgBox;
-    msgBox.setText("Saving complete");
-    msgBox.exec();
+}
+
+
+void FormAdmin::on_pushButton_close_clicked()// Передача данных векторов
+{
+    emit Signal_4(vecBoxEmployee,vecBoxManager,vecBoxSales);
+    this->close();
+
+}
+
+void FormAdmin::on_pushButton_DelWorker_clicked() // Удаление сотрудника
+{
+    if(!vecBoxEmployee.isEmpty())
+    {
+        for(int i=0;i<vecBoxEmployee.size();++i)
+        {
+                if(ui->comboBox->currentText()==vecBoxEmployee[i].GetName())
+                {
+                    vecBoxEmployee.erase(vecBoxEmployee.begin() + i);
+                    ui->comboBox->removeItem(ui->comboBox->currentIndex());
+                }
+        }
+    }
+    else if (!vecBoxManager.isEmpty())
+    {
+        for(int i=0;i<vecBoxManager.size();++i)
+        {
+                if(ui->comboBox->currentText()==vecBoxManager[i].GetName())
+                {
+                    vecBoxManager.erase(vecBoxManager.begin() + i);
+                    ui->comboBox->removeItem(ui->comboBox->currentIndex());
+                }
+        }
+    }
+    else if (!vecBoxSales.isEmpty())
+    {
+        for(int i=0;i<vecBoxSales.size();++i)
+        {
+                if(ui->comboBox->currentText()==vecBoxSales[i].GetName())
+                {
+                    vecBoxSales.erase(vecBoxSales.begin() + i);
+                    ui->comboBox->removeItem(ui->comboBox->currentIndex());
+                }
+        }
+    }
+    else
+    {
+         QMessageBox::warning(this,"Ошибка","Удалить нельзя");
+    }
+
+    ui->textBrowser_date->clear();
+    ui->textBrowser_Pas->clear();
+    ui->textBrowser_positionManager->clear();
+    ui->textBrowser_salary->clear();
 
 }

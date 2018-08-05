@@ -7,6 +7,7 @@
 #include "formadmin.h"
 #include "window.h"
 #include <QString>
+#include "dialogclien.h"
 namespace Ui {
 class MainWindow;
 }
@@ -21,13 +22,23 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    FormAdmin  *forma2_admin;
+    DialogClien* clientForma;
+    FormAdmin *forma2_admin;
+    QVector<Manager> vecBoxM;
+    QVector<Sales> vecBoxS;
+    QVector<Employee> vecBoxE;
+
+signals:
+    void SignalBaseAddForma(QVector<Employee>,QVector<Manager>,QVector<Sales>);
+
 public slots:
 
 
 private slots:
 
 void on_but_ok_clicked();
+void SaveBaseCompany(QVector<Employee> box1,QVector<Manager> box2,QVector<Sales> box3);
+
 };
 
 #endif // MAINWINDOW_H

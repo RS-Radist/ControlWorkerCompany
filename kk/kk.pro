@@ -31,7 +31,8 @@ SOURCES += \
     formadmin.cpp \
     Company_Manager/employee.cpp \
     Company_Manager/manager.cpp \
-    Company_Manager/sales.cpp
+    Company_Manager/sales.cpp \
+    dialogclien.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,8 +42,10 @@ HEADERS += \
     Company_Manager/employee.h \
     Company_Manager/manager.h \
     Company_Manager/sales.h \
-    Company_Manager/Under.h
+    Company_Manager/Under.h \
+    dialogclien.h
 
 FORMS += \
         mainwindow.ui \
-    formadmin.ui
+    formadmin.ui \
+    dialogclien.ui

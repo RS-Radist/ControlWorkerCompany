@@ -56,9 +56,11 @@ SOURCES       = ../kk/main.cpp \
 		../kk/formadmin.cpp \
 		../kk/Company_Manager/employee.cpp \
 		../kk/Company_Manager/manager.cpp \
-		../kk/Company_Manager/sales.cpp moc_mainwindow.cpp \
+		../kk/Company_Manager/sales.cpp \
+		../kk/dialogclien.cpp moc_mainwindow.cpp \
 		moc_window.cpp \
-		moc_formadmin.cpp
+		moc_formadmin.cpp \
+		moc_dialogclien.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		window.o \
@@ -66,9 +68,11 @@ OBJECTS       = main.o \
 		employee.o \
 		manager.o \
 		sales.o \
+		dialogclien.o \
 		moc_mainwindow.o \
 		moc_window.o \
-		moc_formadmin.o
+		moc_formadmin.o \
+		moc_dialogclien.o
 DIST          = ../../Qt/5.10.1/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.10.1/clang_64/mkspecs/qdevice.pri \
 		../../Qt/5.10.1/clang_64/mkspecs/features/device_config.prf \
@@ -262,13 +266,15 @@ DIST          = ../../Qt/5.10.1/clang_64/mkspecs/features/spec_pre.prf \
 		../kk/Company_Manager/employee.h \
 		../kk/Company_Manager/manager.h \
 		../kk/Company_Manager/sales.h \
-		../kk/Company_Manager/Under.h ../kk/main.cpp \
+		../kk/Company_Manager/Under.h \
+		../kk/dialogclien.h ../kk/main.cpp \
 		../kk/mainwindow.cpp \
 		../kk/window.cpp \
 		../kk/formadmin.cpp \
 		../kk/Company_Manager/employee.cpp \
 		../kk/Company_Manager/manager.cpp \
-		../kk/Company_Manager/sales.cpp
+		../kk/Company_Manager/sales.cpp \
+		../kk/dialogclien.cpp
 QMAKE_TARGET  = kk
 DESTDIR       = 
 TARGET        = kk.app/Contents/MacOS/kk
@@ -282,7 +288,7 @@ EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_formadmin.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_formadmin.h ui_dialogclien.h $(OBJECTS)  
 	@test -d kk.app/Contents/MacOS/ || mkdir -p kk.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -699,9 +705,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.10.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../kk/mainwindow.h ../kk/window.h ../kk/formadmin.h ../kk/Company_Manager/Director.h ../kk/Company_Manager/employee.h ../kk/Company_Manager/manager.h ../kk/Company_Manager/sales.h ../kk/Company_Manager/Under.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../kk/main.cpp ../kk/mainwindow.cpp ../kk/window.cpp ../kk/formadmin.cpp ../kk/Company_Manager/employee.cpp ../kk/Company_Manager/manager.cpp ../kk/Company_Manager/sales.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../kk/mainwindow.ui ../kk/formadmin.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../kk/mainwindow.h ../kk/window.h ../kk/formadmin.h ../kk/Company_Manager/Director.h ../kk/Company_Manager/employee.h ../kk/Company_Manager/manager.h ../kk/Company_Manager/sales.h ../kk/Company_Manager/Under.h ../kk/dialogclien.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../kk/main.cpp ../kk/mainwindow.cpp ../kk/window.cpp ../kk/formadmin.cpp ../kk/Company_Manager/employee.cpp ../kk/Company_Manager/manager.cpp ../kk/Company_Manager/sales.cpp ../kk/dialogclien.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../kk/mainwindow.ui ../kk/formadmin.ui ../kk/dialogclien.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -733,9 +739,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../Qt/5.10.1/clang_64/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -dM -E -o moc_predefs.h ../../Qt/5.10.1/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_window.cpp moc_formadmin.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_window.cpp moc_formadmin.cpp moc_dialogclien.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_window.cpp moc_formadmin.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_window.cpp moc_formadmin.cpp moc_dialogclien.cpp
 moc_mainwindow.cpp: ../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -773,6 +779,7 @@ moc_mainwindow.cpp: ../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QDebug
 		../kk/Company_Manager/Director.h \
 		../kk/Company_Manager/sales.h \
 		../kk/Company_Manager/employee.h \
+		../kk/dialogclien.h \
 		../kk/mainwindow.h \
 		moc_predefs.h \
 		../../Qt/5.10.1/clang_64/bin/moc
@@ -796,6 +803,13 @@ moc_window.cpp: ../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QWidget
 		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
 		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		../kk/Company_Manager/manager.h \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QDate \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../kk/Company_Manager/Under.h \
+		../kk/Company_Manager/Director.h \
+		../kk/Company_Manager/sales.h \
+		../kk/Company_Manager/employee.h \
 		../kk/window.h \
 		moc_predefs.h \
 		../../Qt/5.10.1/clang_64/bin/moc
@@ -836,13 +850,20 @@ moc_formadmin.cpp: ../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QWid
 		../../Qt/5.10.1/clang_64/bin/moc
 	/Users/macbook/Qt/5.10.1/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/macbook/Qt/5.10.1/clang_64/mkspecs/macx-clang -I/Users/macbook/work_project/kk -I/Users/macbook/Qt/5.10.1/clang_64/lib/QtPrintSupport.framework/Headers -I/Users/macbook/Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/macbook/Qt/5.10.1/clang_64/lib/QtGui.framework/Headers -I/Users/macbook/Qt/5.10.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/macbook/Qt/5.10.1/clang_64/lib ../kk/formadmin.h -o moc_formadmin.cpp
 
+moc_dialogclien.cpp: ../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		../kk/dialogclien.h \
+		moc_predefs.h \
+		../../Qt/5.10.1/clang_64/bin/moc
+	/Users/macbook/Qt/5.10.1/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/macbook/Qt/5.10.1/clang_64/mkspecs/macx-clang -I/Users/macbook/work_project/kk -I/Users/macbook/Qt/5.10.1/clang_64/lib/QtPrintSupport.framework/Headers -I/Users/macbook/Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/macbook/Qt/5.10.1/clang_64/lib/QtGui.framework/Headers -I/Users/macbook/Qt/5.10.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/macbook/Qt/5.10.1/clang_64/lib ../kk/dialogclien.h -o moc_dialogclien.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_formadmin.h
+compiler_uic_make_all: ui_mainwindow.h ui_formadmin.h ui_dialogclien.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_formadmin.h
+	-$(DEL_FILE) ui_mainwindow.h ui_formadmin.h ui_dialogclien.h
 ui_mainwindow.h: ../kk/mainwindow.ui \
 		../../Qt/5.10.1/clang_64/bin/uic
 	/Users/macbook/Qt/5.10.1/clang_64/bin/uic ../kk/mainwindow.ui -o ui_mainwindow.h
@@ -850,6 +871,10 @@ ui_mainwindow.h: ../kk/mainwindow.ui \
 ui_formadmin.h: ../kk/formadmin.ui \
 		../../Qt/5.10.1/clang_64/bin/uic
 	/Users/macbook/Qt/5.10.1/clang_64/bin/uic ../kk/formadmin.ui -o ui_formadmin.h
+
+ui_dialogclien.h: ../kk/dialogclien.ui \
+		../../Qt/5.10.1/clang_64/bin/uic
+	/Users/macbook/Qt/5.10.1/clang_64/bin/uic ../kk/dialogclien.ui -o ui_dialogclien.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -901,6 +926,7 @@ main.o: ../kk/main.cpp ../kk/mainwindow.h \
 		../kk/Company_Manager/Director.h \
 		../kk/Company_Manager/sales.h \
 		../kk/Company_Manager/employee.h \
+		../kk/dialogclien.h \
 		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../kk/main.cpp
@@ -943,6 +969,7 @@ mainwindow.o: ../kk/mainwindow.cpp ../kk/mainwindow.h \
 		../kk/Company_Manager/Director.h \
 		../kk/Company_Manager/sales.h \
 		../kk/Company_Manager/employee.h \
+		../kk/dialogclien.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../kk/mainwindow.cpp
 
@@ -964,7 +991,14 @@ window.o: ../kk/window.cpp ../kk/window.h \
 		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QCalendarWidget \
 		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
 		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QLabel \
-		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qlabel.h
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		../kk/Company_Manager/manager.h \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QDate \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../kk/Company_Manager/Under.h \
+		../kk/Company_Manager/Director.h \
+		../kk/Company_Manager/sales.h \
+		../kk/Company_Manager/employee.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o ../kk/window.cpp
 
 formadmin.o: ../kk/formadmin.cpp ../kk/formadmin.h \
@@ -1002,7 +1036,21 @@ formadmin.o: ../kk/formadmin.cpp ../kk/formadmin.h \
 		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QDebug \
 		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qdebug.h \
 		../../Qt/5.10.1/clang_64/lib/QtPrintSupport.framework/Headers/QPrinter \
-		../../Qt/5.10.1/clang_64/lib/QtPrintSupport.framework/Headers/qprinter.h
+		../../Qt/5.10.1/clang_64/lib/QtPrintSupport.framework/Headers/qprinter.h \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QTextCodec \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qtextcodec.h \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QTextStream \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qtextstream.h \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/QDir \
+		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qdir.h \
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o formadmin.o ../kk/formadmin.cpp
 
 employee.o: ../kk/Company_Manager/employee.cpp ../kk/Company_Manager/employee.h \
@@ -1030,6 +1078,12 @@ sales.o: ../kk/Company_Manager/sales.cpp ../kk/Company_Manager/sales.h \
 		../../Qt/5.10.1/clang_64/lib/QtCore.framework/Headers/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sales.o ../kk/Company_Manager/sales.cpp
 
+dialogclien.o: ../kk/dialogclien.cpp ../kk/dialogclien.h \
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/5.10.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		ui_dialogclien.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dialogclien.o ../kk/dialogclien.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
@@ -1038,6 +1092,9 @@ moc_window.o: moc_window.cpp
 
 moc_formadmin.o: moc_formadmin.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_formadmin.o moc_formadmin.cpp
+
+moc_dialogclien.o: moc_dialogclien.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dialogclien.o moc_dialogclien.cpp
 
 ####### Install
 

@@ -13,5 +13,6 @@ public:
     {}
     virtual QString GetName()const=0;
     virtual void SetName(QString _name)=0;
+
 };
 #endif // DIRECTOR_H

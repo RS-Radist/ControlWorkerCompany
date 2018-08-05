@@ -11,32 +11,30 @@ class Manager:public Under
 {
 
 private:
-    QString name;
-    int salary;
     //Under* newWorker;
     const Director* directorEmplyee;
 public:
     Manager();// Конструктор по умолчанию
-    Manager(const int _base_salary, const QString& _name, const QDate& rdate);// Базовое добавление
-    int AddSalaryAllTime(const QDate* const& dateStartWork);//Расчет итоговой зарплаты
+    Manager(const double _base_salary, const QString& _name, const QDate& rdate);// Базовое добавление
+    double AddSalaryAllTime(const QDate* const& dateStartWork);//Расчет итоговой зарплаты
     ~Manager(); // диструктор
 
 
 
 
     QString GetName() const;
-    int GetSalary() const;
+    double GetSalary() const;
     QString GetDateString() const;
+    QString GetPas() const;
+    QString GetPosition();
 
 
 
-
-
-
+    void SetPosition(const QString& position);
     void SetName(const QString& _name);
-    void SetSalary(const int _base_salary);
+    void SetSalary(const double _base_salary);
     void SetDirector(const Director* boss);
     void SetWorkDate(const QDate& rdate);
-
+    void SetPas(const QString& pas);
 };
 #endif // MANAGER_H

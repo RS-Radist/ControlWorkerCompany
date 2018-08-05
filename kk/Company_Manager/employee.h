@@ -13,15 +13,27 @@ private:
     const Director* directorEmplyee;
 public:
     Employee();// Конструктор по умолчанию
-    Employee(const int _base_salary, const QString& _name, const QDate& rdate);// Базовое добавление
-    int AddSalaryAllTime(const QDate* const& dateStartWork);//Расчет итоговой зарплаты
+    Employee(const double _base_salary, const QString& _name, const QDate& rdate);// Базовое добавление
+    double AddSalaryAllTime(const QDate* const& dateStartWork);//Расчет итоговой зарплаты
     ~Employee(); // диструктор
+
+
+
+    //Get
     QString GetName() const;
-    int GetSalary() const;
+    double GetSalary() const;
+    QString GetDateString() const;
+    QString GetPas() const;
+    QString GetPosition();
+
+
+    //Set
+    void SetPosition(const QString& position);
     void SetName(const QString& _name);
-    void SetSalary(const int _base_salary);
+    void SetSalary(const double _base_salary);
     void SetDirector(const Director* boss);
     void SetWorkDate(const QDate& rdate);
+    void SetPas(const QString& pas);
 };
 #endif // EMPLOYEE_H
 
