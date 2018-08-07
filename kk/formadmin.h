@@ -36,6 +36,8 @@ private slots:
 
     void on_pushButton_DelWorker_clicked();
 
+    void on_pushButton_LoadBase_clicked();
+
 private:
     QVector<Manager> vecBoxManager;
     QVector<Sales> vecBoxSales;

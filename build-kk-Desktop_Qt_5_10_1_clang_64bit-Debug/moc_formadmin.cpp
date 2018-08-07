@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_FormAdmin_t {
-    QByteArrayData data[22];
-    char stringdata0[307];
+    QByteArrayData data[23];
+    char stringdata0[338];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -53,7 +53,8 @@ QT_MOC_LITERAL(17, 189, 21), // "on_comboBox_activated"
 QT_MOC_LITERAL(18, 211, 4), // "arg1"
 QT_MOC_LITERAL(19, 216, 30), // "on_pushButton_SaveBase_clicked"
 QT_MOC_LITERAL(20, 247, 27), // "on_pushButton_close_clicked"
-QT_MOC_LITERAL(21, 275, 31) // "on_pushButton_DelWorker_clicked"
+QT_MOC_LITERAL(21, 275, 31), // "on_pushButton_DelWorker_clicked"
+QT_MOC_LITERAL(22, 307, 30) // "on_pushButton_LoadBase_clicked"
 
     },
     "FormAdmin\0Signal_1\0\0Signal_2\0Signal_3\0"
@@ -64,7 +65,8 @@ QT_MOC_LITERAL(21, 275, 31) // "on_pushButton_DelWorker_clicked"
     "date\0pas\0on_comboBox_activated\0arg1\0"
     "on_pushButton_SaveBase_clicked\0"
     "on_pushButton_close_clicked\0"
-    "on_pushButton_DelWorker_clicked"
+    "on_pushButton_DelWorker_clicked\0"
+    "on_pushButton_LoadBase_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,7 +76,7 @@ static const uint qt_meta_data_FormAdmin[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -82,19 +84,20 @@ static const uint qt_meta_data_FormAdmin[] = {
        5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   69,    2, 0x06 /* Public */,
-       3,    1,   72,    2, 0x06 /* Public */,
-       4,    1,   75,    2, 0x06 /* Public */,
-       5,    3,   78,    2, 0x06 /* Public */,
-       9,    1,   85,    2, 0x06 /* Public */,
+       1,    1,   74,    2, 0x06 /* Public */,
+       3,    1,   77,    2, 0x06 /* Public */,
+       4,    1,   80,    2, 0x06 /* Public */,
+       5,    3,   83,    2, 0x06 /* Public */,
+       9,    1,   90,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      10,    0,   88,    2, 0x08 /* Private */,
-      11,    5,   89,    2, 0x08 /* Private */,
-      17,    1,  100,    2, 0x08 /* Private */,
-      19,    0,  103,    2, 0x08 /* Private */,
-      20,    0,  104,    2, 0x08 /* Private */,
-      21,    0,  105,    2, 0x08 /* Private */,
+      10,    0,   93,    2, 0x08 /* Private */,
+      11,    5,   94,    2, 0x08 /* Private */,
+      17,    1,  105,    2, 0x08 /* Private */,
+      19,    0,  108,    2, 0x08 /* Private */,
+      20,    0,  109,    2, 0x08 /* Private */,
+      21,    0,  110,    2, 0x08 /* Private */,
+      22,    0,  111,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    2,
@@ -107,6 +110,7 @@ static const uint qt_meta_data_FormAdmin[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Double, QMetaType::QDate, QMetaType::QString,   12,   13,   14,   15,   16,
     QMetaType::Void, QMetaType::QString,   18,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -131,6 +135,7 @@ void FormAdmin::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 8: _t->on_pushButton_SaveBase_clicked(); break;
         case 9: _t->on_pushButton_close_clicked(); break;
         case 10: _t->on_pushButton_DelWorker_clicked(); break;
+        case 11: _t->on_pushButton_LoadBase_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -198,13 +203,13 @@ int FormAdmin::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 11;
+        _id -= 12;
     }
     return _id;
 }

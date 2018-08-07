@@ -14,7 +14,8 @@
 #include <QPrintDialog>
 #include <QPainter>
 #include <QVector>
-
+#include <QtSql>
+#include <QSqlQuery>
 
 FormAdmin::FormAdmin(QWidget *parent) :
     QDialog(parent),
@@ -114,7 +115,37 @@ void FormAdmin::SaveSlotInfo(QString strName,QString strPositionManager,double i
 
             ui->textBrowser_positionManager->setText(strPositionManager);
             ui->textBrowser_date->setText(date.toString("dd/MM/yyyy"));
-            ++size;
+
+
+            QSqlDatabase db;
+            db = QSqlDatabase::addDatabase("QSQLITE");
+            db.setDatabaseName("/Users/rodionloskutov/Desktop/sql_base/Company_base.db");
+            if (!db.open())
+            {
+                qDebug()<<"ERROR";
+            }
+            else
+            {
+                qDebug()<<"OK";
+            }
+
+
+
+
+            QSqlQuery query;
+            query.prepare("INSERT INTO People  (_id,Name,Salary,_Date,Position,Password)"
+                        "VALUES (:_id,:Name,:Salary,:_Date,:Position,:Password)");
+
+
+            query.bindValue(":Name",strName);
+            query.bindValue(":Salary",QVariant(inSalary).toString());
+            query.bindValue(":_Date",date.toString("dd/MM/yyyy"));
+            query.bindValue(":Position",strPositionManager);
+            query.bindValue(":Password",pas);
+            query.exec();
+
+
+
 
 
     }
@@ -142,6 +173,32 @@ void FormAdmin::SaveSlotInfo(QString strName,QString strPositionManager,double i
         ui->textBrowser_date->setText(date.toString("dd/MM/yyyy"));
 
 
+        QSqlDatabase db;
+        db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName("/Users/rodionloskutov/Desktop/sql_base/Company_base.db");
+        if (!db.open())
+        {
+            qDebug()<<"ERROR";
+        }
+        else
+        {
+            qDebug()<<"OK";
+        }
+
+
+
+        QSqlQuery query;
+        query.prepare("INSERT INTO People  (_id,Name,Salary,_Date,Position,Password)"
+                    "VALUES (:_id,:Name,:Salary,:_Date,:Position,:Password)");
+
+        query.bindValue(":Name",strName);
+        query.bindValue(":Salary",QVariant(inSalary).toString());
+        query.bindValue(":_Date",date.toString("dd/MM/yyyy"));
+        query.bindValue(":Position",strPositionManager);
+        query.bindValue(":Password",pas);
+        query.exec();
+
+
 
     }
     if (strPositionManager=="Employee")
@@ -162,6 +219,31 @@ void FormAdmin::SaveSlotInfo(QString strName,QString strPositionManager,double i
         ui->textBrowser_salary->setText(QVariant(inSalary).toString());
         ui->textBrowser_positionManager->setText(strPositionManager);
         ui->textBrowser_date->setText(date.toString("dd/MM/yyyy"));
+
+
+        QSqlDatabase db;
+        db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName("/Users/rodionloskutov/Desktop/sql_base/Company_base.db");
+        if (!db.open())
+        {
+            qDebug()<<"ERROR";
+        }
+        else
+        {
+            qDebug()<<"OK";
+        }
+        QSqlQuery query;
+
+        query.prepare("INSERT INTO People  (_id,Name,Salary,_Date,Position,Password)"
+                    "VALUES (:_id,:Name,:Salary,:_Date,:Position,:Password)");
+
+        query.bindValue(":Name",strName);
+        query.bindValue(":Salary",QVariant(inSalary).toString());
+        query.bindValue(":_Date",date.toString("dd/MM/yyyy"));
+        query.bindValue(":Position",strPositionManager);
+        query.bindValue(":Password",pas);
+        query.exec();
+
 
     }
 }
@@ -224,9 +306,59 @@ void FormAdmin::on_comboBox_activated(const QString &arg1)// Привязка о
     QObject::connect(this,SIGNAL(Signal_5(QString)),ui->textBrowser_Pas,SLOT(setText(QString)));
 }
 
-void FormAdmin::on_pushButton_SaveBase_clicked()// Сохранение в файл
+void FormAdmin::on_pushButton_SaveBase_clicked()// Сохранение в базу SQL
 {
+        QSqlDatabase db;
+        db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName("/Users/rodionloskutov/Desktop/sql_base/Company_base.db");
+        if (!db.open())
+        {
+            qDebug()<<"ERROR";
+        }
+        else
+        {
+            qDebug()<<"OK";
+        }
+        QSqlQuery query;
 
+        query.prepare("INSERT INTO People  (_id,Name,Salary,_Date,Position,Password)"
+                    "VALUES (:_id,:Name,:Salary,:_Date,:Position,Password)");
+        if (!vecBoxEmployee.isEmpty())
+        {
+            for(int i=0;i<vecBoxEmployee.size();++i)
+            {
+                query.bindValue(":Name",vecBoxEmployee[i].GetName());
+                query.bindValue(":Salary",vecBoxEmployee[i].GetSalary());
+                query.bindValue(":_Date",vecBoxEmployee[i].GetDateString());
+                query.bindValue(":Position",vecBoxEmployee[i].GetPosition());
+                query.bindValue(":Password",vecBoxEmployee[i].GetPas());
+                query.exec();
+            }
+        }
+        if (!vecBoxManager.isEmpty())
+        {
+            for(int i=0;i<vecBoxManager.size();++i)
+            {
+                query.bindValue(":Name",vecBoxManager[i].GetName());
+                query.bindValue(":Salary",vecBoxManager[i].GetSalary());
+                query.bindValue(":_Date",vecBoxManager[i].GetDateString());
+                query.bindValue(":Position",vecBoxManager[i].GetPosition());
+                query.bindValue(":Password",vecBoxManager[i].GetPas());
+                query.exec();
+            }
+        }
+        if (!vecBoxSales.isEmpty())
+        {
+            for(int i=0;i<vecBoxSales.size();++i)
+            {
+                query.bindValue(":Name",vecBoxSales[i].GetName());
+                query.bindValue(":Salary",vecBoxSales[i].GetSalary());
+                query.bindValue(":_Date",vecBoxSales[i].GetDateString());
+                query.bindValue(":Position",vecBoxSales[i].GetPosition());
+                query.bindValue(":Password",vecBoxSales[i].GetPas());
+                query.exec();
+            }
+        }
 
 }
 
@@ -283,4 +415,25 @@ void FormAdmin::on_pushButton_DelWorker_clicked() // Удаление сотру
     ui->textBrowser_positionManager->clear();
     ui->textBrowser_salary->clear();
 
+}
+
+void FormAdmin::on_pushButton_LoadBase_clicked()// Загрузка бызы
+{
+//    QSqlDatabase db;
+//    db = QSqlDatabase::addDatabase("QSQLITE");
+//    db.setDatabaseName("C:\\database.db3");
+//    db.open();
+
+//    //Осуществляем запрос
+//    QSqlQuery query;
+//    query.exec("SELECT _id, name, age FROM People");
+
+//    //Выводим значения из запроса
+//    while (query.next())
+//    {
+//        QString _id = query.value(0).toString();
+//        QString name = query.value(1).toString();
+//        QString age = query.value(2).toString();
+//        ui->textEdit->insertPlainText(_id+" "+name+" "+age+"\n");
+//    }
 }
